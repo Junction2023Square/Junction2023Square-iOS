@@ -7,7 +7,9 @@ import SwiftUI
 struct JunctionTemplateApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            OrderView(store: .init(initialState: OrderFeature.State(), reducer: {
+                OrderFeature()
+            }))
         }
     }
 }
