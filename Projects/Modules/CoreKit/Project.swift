@@ -1,0 +1,30 @@
+import ProjectDescription
+import ProjectDescriptionHelpers
+import UtilityPlugin
+
+let frameworkName: String = "CoreKit"
+
+let frameworkTargets: [Target] = FrameworkFactory(
+    dependency: .init(
+        frameworkDependencies: [Dep.Project.ThirdPartyManager],
+        unitTestsDependencies: []
+    )
+).build(
+    payload: .init(
+        name: frameworkName,
+        platform: .iOS,
+        product: .staticLibrary
+    )
+)
+
+let project = ProjectFactory(
+    dependency: .init(
+        appTargets: [],
+        frameworkTargets: frameworkTargets
+    )
+).build(
+    payload: .init(
+        name: frameworkName,
+        organizationName: "kr.junction.square"
+    )
+)
