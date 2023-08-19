@@ -342,7 +342,15 @@ public struct DriverDetailView: View {
 struct DriverDetailView_Previews: PreviewProvider {
     static var previews: some View {
         DriverDetailView(store: Store(
-            initialState: DriverDetailFeature.State(driverItem: DriverItemEntity(id: UUID(), name: "김 으무", driverImageURL: "dd", ratingCount: 121, driverHistoryCount: 32, hashtag: ["맛집", "관광명소"])),
+            initialState: DriverDetailFeature.State(
+                driverItem: DriverItemEntity(
+                    id: UUID(),
+                    name: "김 으무",
+                    driverImageURL: "dd",
+                    ratingCount: 121,
+                    driverHistoryCount: 32,
+                    hashtags: ["맛집", "관광명소"],
+                    isFavorite: true)),
             reducer: {
                 DriverDetailFeature()
             }
