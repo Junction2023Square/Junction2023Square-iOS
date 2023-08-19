@@ -269,7 +269,6 @@ public struct DriverDetailView: View {
                         }
 
                     } else {
-
                         Group {
                             VStack(alignment: .leading, spacing: 28) {
                                 VStack(alignment: .leading, spacing: 16) {
@@ -296,7 +295,7 @@ public struct DriverDetailView: View {
                                     }
                                     .padding(.horizontal, Constants.Margin)
                                     .padding(.vertical, 0)
-                                    .frame(width: .infinity, alignment: .center)
+
 
                                     ScrollView(.horizontal, showsIndicators: false) {
                                         HStack(alignment: .top, spacing: 8) {
@@ -333,24 +332,19 @@ public struct DriverDetailView: View {
                 VStack {
                     Spacer()
 
-                    NavigationLink(state: DriverPickUpFeature.State()) {
-                        Button {
-
-                        } label: {
-                            HStack(alignment: .center, spacing: 0) {
-                                Text("Reserve")
-                                    .font(
-                                        PresentationKitFontFamily.CircularStd.medium.swiftUIFont(size: 16)
-                                    )
-                                    .multilineTextAlignment(.center)
-                                    .foregroundColor(.white)
-                            }
-                            .padding(0)
-                            .frame(maxWidth: .infinity, minHeight: 56, maxHeight: 56, alignment: .center)
-                            .background(Color(red: 0.34, green: 0.62, blue: 0.95))
-                            .cornerRadius(Constants.Corner)
-
+                    NavigationLink(state: DriverListFeature.Path.State.driverPickUp()) {
+                        HStack(alignment: .center, spacing: 0) {
+                            Text("Reserve")
+                                .font(
+                                    PresentationKitFontFamily.CircularStd.medium.swiftUIFont(size: 16)
+                                )
+                                .multilineTextAlignment(.center)
+                                .foregroundColor(.white)
                         }
+                        .padding(0)
+                        .frame(maxWidth: .infinity, minHeight: 56, maxHeight: 56, alignment: .center)
+                        .background(Color(red: 0.34, green: 0.62, blue: 0.95))
+                        .cornerRadius(Constants.Corner)
                     }
                     .padding(.top, 12)
                     .padding([.leading, .trailing], 20)

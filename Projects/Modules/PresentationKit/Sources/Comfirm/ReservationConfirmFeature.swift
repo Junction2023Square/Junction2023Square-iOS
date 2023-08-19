@@ -12,7 +12,7 @@ public struct ReservationConfirmFeature: Reducer {
     }
 
     public enum Action: Equatable {
-
+        
     }
 
     public var body: some ReducerOf<Self> {

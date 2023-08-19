@@ -185,9 +185,7 @@ public struct DriverPickUpView: View {
                 
                 VStack {
                     Spacer()
-                    Button {
-                        
-                    } label: {
+                    NavigationLink(state: DriverListFeature.Path.State.reservationConfirm()) {
                         HStack(alignment: .center, spacing: 0) {
                             Text("Confirm")
                                 .font(
