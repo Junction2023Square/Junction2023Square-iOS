@@ -12,16 +12,24 @@ public struct DriverItemEntity: Equatable, Identifiable {
     public let id: UUID
     public let name: String
     public let driverImageURL: String
-    public let ratingCount: Int
+    public let ratingCount: Double
     public let driverHistoryCount: Int
-    public let hashtag: [String]
+    public let hashtags: [String]
+    public let isFavorite: Bool
 
-    public init(id: UUID, name: String, driverImageURL: String, ratingCount: Int, driverHistoryCount: Int, hashtag: [String]) {
+    public init(id: UUID,
+                name: String,
+                driverImageURL: String,
+                ratingCount: Double,
+                driverHistoryCount: Int,
+                hashtags: [String],
+                isFavorite: Bool) {
         self.id = id
         self.name = name
         self.driverImageURL = driverImageURL
         self.ratingCount = ratingCount
         self.driverHistoryCount = driverHistoryCount
-        self.hashtag = hashtag
+        self.hashtags = hashtags
+        self.isFavorite = isFavorite
     }
 }
