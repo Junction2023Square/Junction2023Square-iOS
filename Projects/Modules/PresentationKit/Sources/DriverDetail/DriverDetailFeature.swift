@@ -22,13 +22,16 @@ public struct DriverDetailFeature: Reducer {
     }
     
     public enum Action: Equatable {
+        case didTapReservationButton
     }
     
     public var body: some ReducerOf<Self> {
         Reduce { state, action in
-            //          switch action {
-            //          }
-            return .none
+            switch action {
+            case .didTapReservationButton:
+
+                return .none
+            }
         }
     }
 }

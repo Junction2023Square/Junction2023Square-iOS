@@ -9,7 +9,7 @@
 import ComposableArchitecture
 import DomainKit
 import SwiftUIFlowLayout
-
+import DomainKit
 import SwiftUI
 
 public struct DriverDetailView: View {
@@ -325,7 +325,7 @@ public struct DriverDetailView: View {
                 VStack {
                     Spacer()
                     Button {
-                        print("Bottom action")
+                        
                     } label: {
                         HStack(alignment: .center, spacing: 0) {
                             Text("Reserve")

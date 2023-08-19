@@ -133,11 +133,3 @@ public struct DriverListView: View {
         }
     }
 }
-
-struct OrderView_Previews: PreviewProvider {
-    static var previews: some View {
-        DriverListView(store: .init(initialState: DriverListFeature.State(), reducer: {
-            DriverListFeature()
-        }))
-    }
-}
