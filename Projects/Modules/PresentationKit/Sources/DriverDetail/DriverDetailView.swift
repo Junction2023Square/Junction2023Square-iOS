@@ -9,7 +9,7 @@
 import ComposableArchitecture
 import DomainKit
 import SwiftUIFlowLayout
-import DomainKit
+
 import SwiftUI
 
 public struct DriverDetailView: View {
