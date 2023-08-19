@@ -11,6 +11,7 @@ public extension TargetDependency.SPM {
     static let Swinject = Self.external("Swinject")
     static let Quick = Self.external("Quick")
     static let Nimble = Self.external("Nimble")
+    static let SwiftUIFlowLayout = Self.external("SwiftUIFlowLayout")
     
     private static func external(_ name: String) -> TargetDependency {
         return TargetDependency.external(name: name)
