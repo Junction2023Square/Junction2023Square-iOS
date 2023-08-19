@@ -14,22 +14,37 @@ public struct DriverDetailFeature: Reducer {
     public init() { }
     
     public struct State: Equatable {
-        public var driverItem: Driver
-
         public init(driverItem: Driver) {
             self.driverItem = driverItem
         }
+        public var driverItem: Driver
+        @BindingState public var selectedIndex: Int = 0
+        @BindingState public var isSelectedFavorite: Bool = false
     }
     
     public enum Action: Equatable {
         case didTapReservationButton
+        case didTapDriverInfo
+        case didTapReviewInfo
+        case didTapFavoriteButton
     }
     
     public var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
             case .didTapReservationButton:
+                return .none
 
+            case .didTapDriverInfo:
+                state.selectedIndex = 0
+                return .none
+
+            case .didTapReviewInfo:
+                state.selectedIndex = 1
+                return .none
+
+            case .didTapFavoriteButton:
+                state.isSelectedFavorite.toggle()
                 return .none
             }
         }
