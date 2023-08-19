@@ -464,7 +464,17 @@ public struct DriverDetailView: View {
 struct DriverDetailView_Previews: PreviewProvider {
     static var previews: some View {
         DriverDetailView(store: Store(
-            initialState: DriverDetailFeature.State(),
+            initialState: DriverDetailFeature.State(driverItem: .init(
+                driverID: UUID().uuidString,
+                name: "Test Driver",
+                drives: 300,
+                averageRating: "5",
+                region: "Korea",
+                carSize: .large,
+                profileImgURL: "",
+                createdAt: "\(Date())",
+                updatedAt: "\(Date())"
+            )),
             reducer: {
                 DriverDetailFeature()
             }

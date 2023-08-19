@@ -12,6 +12,10 @@ let infoPlist: [String: InfoPlist.Value] = [
     "CFBundleDisplayName": "Square",
     "UIMainStoryboardFile": "",
     "UILaunchStoryboardName": "LaunchScreen",
+    "NSAppTransportSecurity": [
+        "NSAllowsArbitraryLoads": true
+    ],
+    "API_URL": "$(API_URL)",
     "CFBundleIcons": [
         "CFBundlePrimaryIcon": [
             "CFBundleIconFiles": [

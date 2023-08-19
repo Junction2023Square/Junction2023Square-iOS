@@ -14,10 +14,12 @@ public struct DriverDetailFeature: Reducer {
     public init() { }
     
     public struct State: Equatable {
+        public init(driverItem: Driver) {
+            self.driverItem = driverItem
+        }
+        public var driverItem: Driver
         @BindingState public var selectedIndex: Int = 0
         @BindingState public var isSelectedFavorite: Bool = false
-
-        public init() { }
     }
     
     public enum Action: Equatable {
