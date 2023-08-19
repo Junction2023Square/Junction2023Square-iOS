@@ -7,11 +7,17 @@
 //
 
 import ComposableArchitecture
+import DataKit
 import DomainKit
+
 import Foundation
 
 public struct DriverDetailFeature: Reducer {
     public init() { }
+    
+    private let driverReviewListUseCase: DriverReviewUseCaseProtocol = DriverReviewUseCase(
+        driverReviewRepository: DriverReviewRepository()
+    )
     
     public struct State: Equatable {
         public init(driver: Driver) {
@@ -19,6 +25,8 @@ public struct DriverDetailFeature: Reducer {
         }
         
         public var driver: Driver
+        public var reviewAverage: Double = 0
+        var reviews: [DriverReview] = []
         @BindingState public var selectedIndex: Int = 0
         @BindingState public var isSelectedFavorite: Bool = false
     }
@@ -28,6 +36,8 @@ public struct DriverDetailFeature: Reducer {
         case didTapDriverInfo
         case didTapReviewInfo
         case didTapFavoriteButton
+        case fetchDriverReview
+        case fetchDriverReviewSuccess([DriverReview])
     }
     
     public var body: some ReducerOf<Self> {
@@ -46,6 +56,18 @@ public struct DriverDetailFeature: Reducer {
 
             case .didTapFavoriteButton:
                 state.isSelectedFavorite.toggle()
+                return .none
+            case .fetchDriverReview:
+                return .run { [state] send in
+                    let result = try await driverReviewListUseCase.fetchDriverReviews(driverID: state.driver.driverID)
+                    print("🟢 \(result)")
+                    await send(.fetchDriverReviewSuccess(result))
+                }
+            case .fetchDriverReviewSuccess(let reviews):
+                state.reviews = reviews
+                if reviews.count > 0 {
+                    state.reviewAverage = Double(reviews.map({ $0.rating }).reduce(0, { $0 + $1})) / Double(reviews.count)
+                }
                 return .none
             }
         }

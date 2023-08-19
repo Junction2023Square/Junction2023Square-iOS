@@ -43,7 +43,6 @@ public struct DriverListFeature: Reducer {
             case let .path(action):
                 switch action {
                 case .element(id: _, action: .driverDetail):
-//                    state.path.append(.driverDetail(.init(driver: driver)))
                     return .none
 
                 case .element(id: _, action: .driverPickUp(.didTapConfirmButton)):

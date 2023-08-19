@@ -9,6 +9,7 @@ let frameworkTargets: [Target] = FrameworkFactory(
         frameworkDependencies: [
             Dep.Project.DIKit,
             Dep.Project.DomainKit,
+            Dep.Project.DataKit,
             Dep.Project.CoreKit
         ],
         unitTestsDependencies: []
