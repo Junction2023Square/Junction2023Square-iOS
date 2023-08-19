@@ -1,5 +1,6 @@
-import SwiftUI
 import ComposableArchitecture
+
+import SwiftUI
 
 public struct DriverListView: View {
     public let store: StoreOf<DriverListFeature>
@@ -62,7 +63,6 @@ public struct DriverListView: View {
 
                                             Spacer()
 
-
                                             Image(systemName: driverItem.isFavorite == true ? "heart.fill" : "heart")
                                                 .resizable()
                                                 .frame(width: 25, height: 20)
@@ -74,10 +74,9 @@ public struct DriverListView: View {
                                         .padding(0)
                                         .frame(maxWidth: .infinity, alignment: .top)
 
-
                                         HStack(alignment: .top, spacing: 8) {
                                             HStack(alignment: .center, spacing: 4) {
-                                                PresentationKitAsset.star.swiftUIImage
+                                                PresentationKitAsset.starMono.swiftUIImage
                                                     .frame(width: 12, height: 12)
 
                                                 Text("\(driverItem.ratingCount)")
@@ -89,7 +88,7 @@ public struct DriverListView: View {
                                             }
 
                                             HStack(alignment: .center, spacing: 4) {
-                                                PresentationKitAsset.car.swiftUIImage
+                                                PresentationKitAsset.carMono.swiftUIImage
                                                     .frame(width: 12, height: 12)
 
                                                 Text("\(driverItem.driverHistoryCount)")
