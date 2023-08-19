@@ -4,8 +4,10 @@ import DomainKit
 import Foundation
 
 public struct DriverListFeature: Reducer {
-    public init() {
-        
+    private let driverListUseCase: DriverListUseCaseProtocol
+    
+    public init(driverListUseCase: DriverListUseCaseProtocol) {
+        self.driverListUseCase = driverListUseCase
     }
 
     public struct State: Equatable {
@@ -18,6 +20,8 @@ public struct DriverListFeature: Reducer {
             .init(id: UUID(), name: "김 으무", driverImageURL: "dd", ratingCount: 4.5, driverHistoryCount: 32, hashtags: ["맛집", "관광명소"], isFavorite: false),
             .init(id: UUID(), name: "김 으무", driverImageURL: "dd", ratingCount: 4.5, driverHistoryCount: 32, hashtags: ["맛집", "관광명소"], isFavorite: false)
         ]
+        
+        public var driverList: IdentifiedArrayOf<Driver> = []
 
         public var isSelctedFavoriteDriver: Bool = false
 
@@ -29,6 +33,8 @@ public struct DriverListFeature: Reducer {
         case path(StackAction<Path.State, Path.Action>)
 
         case didTapFavoriteDriver
+        case fetchDriverList
+        case fetchDriverListResponse([Driver])
     }
 
     public var body: some ReducerOf<Self> {
@@ -37,7 +43,7 @@ public struct DriverListFeature: Reducer {
             case let .path(action):
                 switch action {
                 case .element(id: _, action: .driverDetail):
-                    state.path.append(.driverDetail())
+//                    state.path.append(.driverDetail(.init(driver: driver)))
                     return .none
 
                 case .element(id: _, action: .driverPickUp):
@@ -54,7 +60,14 @@ public struct DriverListFeature: Reducer {
             case .didTapFavoriteDriver:
                 state.isSelctedFavoriteDriver.toggle()
                 return .none
-
+            case .fetchDriverList:
+                return .run { send in
+                    let drivers: [Driver] = try await driverListUseCase.getDrivers()
+                    await send(.fetchDriverListResponse(drivers))
+                }
+            case .fetchDriverListResponse(let drivers):
+                state.driverList = .init(uniqueElements: drivers)
+                return .none
             default:
                 return .none
             }
@@ -66,7 +79,7 @@ public struct DriverListFeature: Reducer {
 
     public struct Path: Reducer {
         public enum State: Equatable {
-            case driverDetail(DriverDetailFeature.State = .init())
+            case driverDetail(DriverDetailFeature.State)
             case driverPickUp(DriverPickUpFeature.State = .init())
             case reservationConfirm(ReservationConfirmFeature.State = .init())
         }

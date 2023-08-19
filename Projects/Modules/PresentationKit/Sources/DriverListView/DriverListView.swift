@@ -1,4 +1,6 @@
 import ComposableArchitecture
+import DomainKit
+import Kingfisher
 
 import SwiftUI
 
@@ -11,7 +13,7 @@ public struct DriverListView: View {
 
     public var body: some View {
         NavigationStackStore(self.store.scope(state: \.path, action: { .path($0) })) {
-            WithViewStore(self.store, observe: \.driverItem) { viewStore in
+            WithViewStore(self.store, observe: \.driverList) { viewStore in
                 ScrollView {
                     VStack(alignment: .leading, spacing: 32) {
                         HStack(alignment: .center) {
@@ -40,19 +42,22 @@ public struct DriverListView: View {
                         .padding(.vertical, 0)
                         .frame(width: 380, alignment: .center)
 
-                        ForEach(viewStore.state) { driverItem in
-                            NavigationLink(state: DriverListFeature.Path.State.driverDetail()) {
+                        ForEach(viewStore.state) { (driver: Driver) in
+                            NavigationLink(state: DriverListFeature.Path.State.driverDetail(.init(driver: driver))) {
                                 HStack(alignment: .top, spacing: 12) {
                                     ZStack {
-
+                                        KFImage(URL(string: driver.profileImgURL))
+                                            .resizable()
+                                            .scaledToFill()
+                                            .frame(width: 60, height: 60)
                                     }
                                     .frame(width: 60, height: 60)
                                     .background(Color(red: 0.83, green: 0.85, blue: 0.88))
                                     .cornerRadius(8)
-
+                                    
                                     VStack(alignment: .leading, spacing: 8) {
                                         HStack(alignment: .top) {
-                                            Text("\(driverItem.name)")
+                                            Text("\(driver.name)")
                                                 .font(
                                                     PresentationKitFontFamily.CircularStd.medium.swiftUIFont(size: 15)
                                                 )
@@ -60,7 +65,7 @@ public struct DriverListView: View {
 
                                             Spacer()
 
-                                            Image(systemName: driverItem.isFavorite == true ? "heart.fill" : "heart")
+                                            Image(systemName: (Double(driver.averageRating) ?? 0) > 3 ? "heart.fill" : "heart")
                                                 .resizable()
                                                 .frame(width: 25, height: 20)
                                                 .foregroundColor(Color.red)
@@ -76,7 +81,7 @@ public struct DriverListView: View {
                                                 PresentationKitAsset.starMono.swiftUIImage
                                                     .frame(width: 12, height: 12)
 
-                                                Text("\(String(format: "%.2f", driverItem.ratingCount))")
+                                                Text("\((1...5).randomElement() ?? 1).0")
                                                     .font(
                                                         PresentationKitFontFamily.CircularStd.medium.swiftUIFont(size: 13)
                                                     )
@@ -87,7 +92,7 @@ public struct DriverListView: View {
                                                 PresentationKitAsset.carMono.swiftUIImage
                                                     .frame(width: 12, height: 12)
 
-                                                Text("\(driverItem.driverHistoryCount)")
+                                                Text("\((1...1000).randomElement() ?? 0)")
                                                     .font(
                                                         PresentationKitFontFamily.CircularStd.medium.swiftUIFont(size: 13)
                                                     )
@@ -126,6 +131,9 @@ public struct DriverListView: View {
 
                         Spacer()
                     }
+                }
+                .onAppear {
+                    viewStore.send(.fetchDriverList)
                 }
             }
         } destination: {

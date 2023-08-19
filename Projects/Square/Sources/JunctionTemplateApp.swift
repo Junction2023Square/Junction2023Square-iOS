@@ -1,5 +1,7 @@
 import ComposableArchitecture
 import PresentationKit
+import DomainKit
+import DataKit
 
 import SwiftUI
 
@@ -10,7 +12,7 @@ struct JunctionTemplateApp: App {
             DriverListView(store: .init(
                 initialState: DriverListFeature.State(),
                 reducer: {
-                DriverListFeature()
+                DriverListFeature(driverListUseCase: DriverListUseCase(driverRepository: DriverRepository()))
             }))
         }
     }

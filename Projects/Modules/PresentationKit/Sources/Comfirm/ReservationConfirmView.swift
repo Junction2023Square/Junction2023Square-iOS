@@ -120,7 +120,6 @@ public struct ReservationConfirmView: View {
                                         )
                                         .foregroundColor(Color(red: 0.68, green: 0.72, blue: 0.78))
                                     Spacer()
-                                    // Body2
                                     Text("Hojin Lee")
                                         .font(
                                             PresentationKitFontFamily.CircularStd.medium.swiftUIFont(size: 15)
