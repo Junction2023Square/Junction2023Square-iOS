@@ -7,7 +7,11 @@ import SwiftUI
 struct JunctionTemplateApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            DriverListView(store: .init(
+                initialState: DriverListFeature.State(),
+                reducer: {
+                DriverListFeature()
+            }))
         }
     }
 }

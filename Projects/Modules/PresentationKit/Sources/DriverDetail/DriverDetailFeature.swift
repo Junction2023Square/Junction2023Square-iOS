@@ -7,14 +7,18 @@
 //
 
 import ComposableArchitecture
-
+import DomainKit
 import Foundation
 
 public struct DriverDetailFeature: Reducer {
     public init() { }
     
     public struct State: Equatable {
-        public init() { }
+        public var driverItem: DriverItemEntity
+
+        public init(driverItem: DriverItemEntity) {
+            self.driverItem = driverItem
+        }
     }
     
     public enum Action: Equatable {
