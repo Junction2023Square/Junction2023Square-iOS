@@ -6,8 +6,7 @@ public final class BaseAPIClient {
     
     public init() {}
     
-    #warning("TODO: 추후 수정 필요")
-    private let baseURL: URL = URL(string: "https://api.github.com")!
+    let apiURLString: String = Bundle.main.object(forInfoDictionaryKey: "API_URL") as? String ?? "없음"
     
     private(set) var session: Session = {
         let configuration = URLSessionConfiguration.default
@@ -24,7 +23,7 @@ public final class BaseAPIClient {
         headers: HTTPHeaders? = nil
     ) async throws -> (T?, Error?) {
         let request: DataRequest = session.request(
-            url,
+            "http://" + apiURLString + url,
             method: method,
             parameters: parameters,
             encoding: method == .get ? URLEncoding.default : JSONEncoding.default,

@@ -4,8 +4,10 @@ import DomainKit
 import Foundation
 
 public struct DriverListFeature: Reducer {
-    public init() {
-        
+    private let driverListUseCase: DriverListUseCaseProtocol
+    
+    public init(driverListUseCase: DriverListUseCaseProtocol) {
+        self.driverListUseCase = driverListUseCase
     }
 
     public struct State: Equatable {
@@ -19,6 +21,8 @@ public struct DriverListFeature: Reducer {
             .init(id: UUID(), name: "김 으무", driverImageURL: "dd", ratingCount: 4.5, driverHistoryCount: 32, hashtags: ["맛집", "관광명소"], isFavorite: false),
             .init(id: UUID(), name: "김 으무", driverImageURL: "dd", ratingCount: 4.5, driverHistoryCount: 32, hashtags: ["맛집", "관광명소"], isFavorite: false)
         ]
+        
+        public var driverList: IdentifiedArrayOf<Driver> = []
 
         public var isSelctedFavoriteDriver: Bool = false
 
@@ -31,6 +35,8 @@ public struct DriverListFeature: Reducer {
         case destination(PresentationAction<Destination.Action>)
 
         case didTapFavoriteDriver
+        case fetchDriverList
+        case fetchDriverListResponse([Driver])
     }
 
     public var body: some ReducerOf<Self> {
@@ -42,7 +48,7 @@ public struct DriverListFeature: Reducer {
             case .didTapDriverListCell(let index):
                 state.destination = .didTapDriverListCell(
                     DriverDetailFeature.State(
-                        driverItem: state.driverItem[index])
+                        driverItem: state.driverList[index])
                 )
 
                 return .none
@@ -58,7 +64,14 @@ public struct DriverListFeature: Reducer {
             case .didTapFavoriteDriver:
                 state.isSelctedFavoriteDriver.toggle()
                 return .none
-
+            case .fetchDriverList:
+                return .run { send in
+                    let drivers: [Driver] = try await driverListUseCase.getDrivers()
+                    await send(.fetchDriverListResponse(drivers))
+                }
+            case .fetchDriverListResponse(let drivers):
+                state.driverList = .init(uniqueElements: drivers)
+                return .none
             default:
                 return .none
             }

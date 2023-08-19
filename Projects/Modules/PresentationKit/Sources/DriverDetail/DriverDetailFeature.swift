@@ -14,9 +14,9 @@ public struct DriverDetailFeature: Reducer {
     public init() { }
     
     public struct State: Equatable {
-        public var driverItem: DriverItemEntity
+        public var driverItem: Driver
 
-        public init(driverItem: DriverItemEntity) {
+        public init(driverItem: Driver) {
             self.driverItem = driverItem
         }
     }
