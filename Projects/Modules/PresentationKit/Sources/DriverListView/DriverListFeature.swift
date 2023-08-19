@@ -46,7 +46,7 @@ public struct DriverListFeature: Reducer {
 //                    state.path.append(.driverDetail(.init(driver: driver)))
                     return .none
 
-                case .element(id: _, action: .driverPickUp):
+                case .element(id: _, action: .driverPickUp(.didTapConfirmButton)):
                     state.path.append(.driverPickUp())
                     return .none
 

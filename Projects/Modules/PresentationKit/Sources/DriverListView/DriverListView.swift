@@ -140,23 +140,23 @@ public struct DriverListView: View {
             switch $0 {
             case .driverDetail:
                 CaseLet(
-                  /DriverListFeature.Path.State.driverDetail,
-                  action: DriverListFeature.Path.Action.driverDetail,
-                  then: DriverDetailView.init(store:)
+                    /DriverListFeature.Path.State.driverDetail,
+                     action: DriverListFeature.Path.Action.driverDetail,
+                     then: DriverDetailView.init(store:)
                 )
 
             case .driverPickUp:
                 CaseLet(
-                  /DriverListFeature.Path.State.driverPickUp,
-                  action: DriverListFeature.Path.Action.driverPickUp,
-                  then: DriverPickUpView.init(store:)
+                    /DriverListFeature.Path.State.driverPickUp,
+                     action: DriverListFeature.Path.Action.driverPickUp,
+                     then: DriverPickUpView.init(store:)
                 )
 
             case .reservationConfirm:
                 CaseLet(
-                  /DriverListFeature.Path.State.reservationConfirm,
-                  action: DriverListFeature.Path.Action.reservationConfirm,
-                  then: ReservationConfirmView.init(store:)
+                    /DriverListFeature.Path.State.reservationConfirm,
+                     action: DriverListFeature.Path.Action.reservationConfirm,
+                     then: ReservationConfirmView.init(store:)
                 )
 
             default:
