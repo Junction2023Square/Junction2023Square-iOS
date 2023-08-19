@@ -9,6 +9,7 @@
 import ComposableArchitecture
 import DomainKit
 import SwiftUIFlowLayout
+
 import SwiftUI
 
 public struct DriverDetailView: View {
@@ -36,7 +37,7 @@ public struct DriverDetailView: View {
                         
                         HStack(alignment: .center) {
                             VStack(alignment: .leading, spacing: 12) {
-                                Text("Sangjin Lee")
+                                Text(viewStore.driver.name)
                                     .font(
                                         PresentationKitFontFamily.CircularStd.medium.swiftUIFont(size: 24)
                                     )
@@ -45,7 +46,7 @@ public struct DriverDetailView: View {
                                     PresentationKitAsset.starMono.swiftUIImage
                                         .resizable()
                                         .frame(width: 16, height: 16)
-                                    Text("4.8")
+                                    Text("\(String(format: "%.1f", viewStore.reviewAverage))")
                                         .font(
                                             PresentationKitFontFamily.CircularStd.medium.swiftUIFont(size: 16)
                                         )
@@ -56,7 +57,7 @@ public struct DriverDetailView: View {
                                         .resizable()
                                         .frame(width: 16, height: 16)
                                     
-                                    Text("352")
+                                    Text("\(viewStore.reviews.count)")
                                         .font(
                                             PresentationKitFontFamily.CircularStd.medium.swiftUIFont(size: 16)
                                         )
@@ -85,6 +86,9 @@ public struct DriverDetailView: View {
                     .padding(.vertical, 0)
                     .frame(width: UIScreen.main.bounds.width, alignment: .topLeading)
                     .padding(.bottom, 28)
+                    .onAppear {
+                        viewStore.send(.fetchDriverReview)
+                    }
                     
                     // 드라이버, 리뷰 탭
                     HStack(alignment: .top, spacing: 0) {
@@ -277,7 +281,7 @@ public struct DriverDetailView: View {
                                             PresentationKitAsset.starMono.swiftUIImage
                                                 .resizable()
                                                 .frame(width: 20, height: 20)
-                                            Text("4.8")
+                                            Text("\(viewStore.reviews.map({ $0.rating }).reduce(0, { $0 + $1})/viewStore.reviews.count)")
                                                 .font(
                                                     PresentationKitFontFamily.CircularStd.medium.swiftUIFont(size: 26)
                                                 )
@@ -287,7 +291,7 @@ public struct DriverDetailView: View {
 
                                         Spacer()
 
-                                        Text("352 reviews")
+                                        Text("\(viewStore.reviews.count) reviews")
                                             .font(
                                                 PresentationKitFontFamily.CircularStd.medium.swiftUIFont(size: 16)
                                             )
@@ -296,19 +300,11 @@ public struct DriverDetailView: View {
                                     .padding(.horizontal, Constants.Margin)
                                     .padding(.vertical, 0)
 
-
                                     ScrollView(.horizontal, showsIndicators: false) {
                                         HStack(alignment: .top, spacing: 8) {
-                                            getChip()
-                                            getChip()
-                                            getChip()
-                                            getChip()
-                                            getChip()
-                                            getChip()
-                                            getChip()
-                                            getChip()
-                                            getChip()
-                                            getChip()
+                                            ForEach(["Cafe", "Clean", "Price", "Safe", "Fast"], id: \.self) { (title: String) in
+                                                getChip(title: title)
+                                            }
                                         }
                                         .padding(.leading, Constants.Margin)
                                         .padding(.trailing, 0)
@@ -317,10 +313,13 @@ public struct DriverDetailView: View {
                                 }
                                 .padding(0)
 
-                                getReviewCell()
-                                getReviewCell()
-                                getReviewCell()
-                                getReviewCell()
+                                ForEach(viewStore.reviews, id: \.self) { (driverReview: DriverReview) in
+                                    getReviewCell(
+                                        title: driverReview.title,
+                                        content: driverReview.content,
+                                        rating: driverReview.rating
+                                    )
+                                }
                             }
                             .padding(0)
                             .padding(.bottom, 120)
@@ -355,16 +354,14 @@ public struct DriverDetailView: View {
         }
     }
     
-    private func getReviewCell() -> some View {
+    private func getReviewCell(title: String, content: String, rating: Int) -> some View {
         VStack(alignment: .leading, spacing: 12) {
             VStack(alignment: .leading, spacing: 2) {
-                // Body1
-                Text("Nice Driver!")
+                Text(title)
                     .font(
                         PresentationKitFontFamily.CircularStd.medium.swiftUIFont(size: 18)
                     )
                     .foregroundColor(Color(red: 0.31, green: 0.35, blue: 0.41))
-                // Body3
                 Text("Jihan Park")
                     .font(
                         PresentationKitFontFamily.CircularStd.medium.swiftUIFont(size: 13)
@@ -375,46 +372,36 @@ public struct DriverDetailView: View {
             
             VStack(alignment: .leading, spacing: 4) {
                 HStack(alignment: .center, spacing: 4) {
-                    PresentationKitAsset.starMono.swiftUIImage
-                        .resizable()
-                        .frame(width: 16, height: 16)
-                    PresentationKitAsset.starMono.swiftUIImage
-                        .resizable()
-                        .frame(width: 16, height: 16)
-                    PresentationKitAsset.starMono.swiftUIImage
-                        .resizable()
-                        .frame(width: 16, height: 16)
-                    PresentationKitAsset.starMono.swiftUIImage
-                        .resizable()
-                        .frame(width: 16, height: 16)
-                    PresentationKitAsset.starMono.swiftUIImage
-                        .resizable()
-                        .frame(width: 16, height: 16)
+                    ForEach(0..<rating, id: \.self) { _ in
+                        PresentationKitAsset.starMono.swiftUIImage
+                            .resizable()
+                            .frame(width: 16, height: 16)
+                    }
                 }
                 .padding(0)
-                // Body3
-                Text("I'm grateful for the exceptional taxi driver who made my trip smoother. Their local knowledge, friendly manner, and skilled driving ensured a comfortable and safe ride. Looking forward to the next journey with such a fantastic driver!")
+                Text(content)
                     .font(
                         PresentationKitFontFamily.CircularStd.medium.swiftUIFont(size: 13)
                     )
                     .foregroundColor(Color(red: 0.47, green: 0.52, blue: 0.59))
                     .frame(maxWidth: .infinity)
-                    .padding(.horizontal, 20)
             }
             .padding(0)
+            .frame(maxWidth: .infinity)
         }
         .padding(.horizontal, Constants.Margin)
         .padding(.vertical, 0)
+        .frame(maxWidth: .infinity)
     }
     
-    private func getChip() -> some View {
+    private func getChip(title: String) -> some View {
         HStack(alignment: .center, spacing: 4) {
-            Text("Cafe")
+            Text(title)
                 .font(
                     PresentationKitFontFamily.CircularStd.medium.swiftUIFont(size: 15)
                 )
                 .foregroundColor(Color(red: 0.47, green: 0.52, blue: 0.59))
-            Text("21")
+            Text("\((2...30).randomElement() ?? 1)")
                 .font(
                     PresentationKitFontFamily.CircularStd.medium.swiftUIFont(size: 15)
                 )
