@@ -17,8 +17,7 @@ public struct DriverListView: View {
                         HStack(alignment: .center) {
                             Text("Driver List")
                                 .font(
-                                    Font.custom("Gellix", size: 32)
-                                        .weight(.bold)
+                                    PresentationKitFontFamily.CircularStd.medium.swiftUIFont(size: 32)
                                 )
                                 .foregroundColor(Color(red: 0.1, green: 0.12, blue: 0.16))
 
@@ -27,8 +26,7 @@ public struct DriverListView: View {
                             HStack(alignment: .center, spacing: 0) {
                                 Text("Favorite Driver")
                                     .font(
-                                        Font.custom("Nexa Text-Trial", size: 13)
-                                            .weight(.semibold)
+                                        PresentationKitFontFamily.CircularStd.medium.swiftUIFont(size: 13)
                                     )
                                     .foregroundColor(.white)
                             }
@@ -56,8 +54,7 @@ public struct DriverListView: View {
                                         HStack(alignment: .top) {
                                             Text("\(driverItem.name)")
                                                 .font(
-                                                    Font.custom("Gellix", size: 15)
-                                                        .weight(.semibold)
+                                                    PresentationKitFontFamily.CircularStd.medium.swiftUIFont(size: 15)
                                                 )
                                                 .foregroundColor(Color(red: 0.31, green: 0.35, blue: 0.41))
 
@@ -79,10 +76,9 @@ public struct DriverListView: View {
                                                 PresentationKitAsset.starMono.swiftUIImage
                                                     .frame(width: 12, height: 12)
 
-                                                Text("\(driverItem.ratingCount)")
+                                                Text("\(String(format: "%.2f", driverItem.ratingCount))")
                                                     .font(
-                                                        Font.custom("Gellix", size: 13)
-                                                            .weight(.semibold)
+                                                        PresentationKitFontFamily.CircularStd.medium.swiftUIFont(size: 13)
                                                     )
                                                     .foregroundColor(Color(red: 0.31, green: 0.35, blue: 0.41))
                                             }
@@ -93,8 +89,7 @@ public struct DriverListView: View {
 
                                                 Text("\(driverItem.driverHistoryCount)")
                                                     .font(
-                                                        Font.custom("Gellix", size: 13)
-                                                            .weight(.semibold)
+                                                        PresentationKitFontFamily.CircularStd.medium.swiftUIFont(size: 13)
                                                     )
                                                     .foregroundColor(Color(red: 0.31, green: 0.35, blue: 0.41))
                                             }
@@ -106,8 +101,7 @@ public struct DriverListView: View {
                                                     HStack(alignment: .center, spacing: 0) {
                                                         Text("Local Expertise")
                                                             .font(
-                                                                Font.custom("Montserrat", size: 13)
-                                                                    .weight(.semibold)
+                                                                PresentationKitFontFamily.CircularStd.medium.swiftUIFont(size: 13)
                                                             )
                                                             .foregroundColor(Color(red: 0.47, green: 0.52, blue: 0.59))
                                                     }

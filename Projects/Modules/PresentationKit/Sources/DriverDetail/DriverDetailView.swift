@@ -35,22 +35,20 @@ public struct DriverDetailView: View {
                             .frame(width: 80, height: 80)
                             .cornerRadius(Constants.Corner3)
                         
-                        HStack(alignment: .top) {
+                        HStack(alignment: .center) {
                             VStack(alignment: .leading, spacing: 12) {
                                 Text("Sangjin Lee")
                                     .font(
-                                        Font.custom("Circular Std", size: 26)
-                                            .weight(.semibold)
+                                        PresentationKitFontFamily.CircularStd.medium.swiftUIFont(size: 24)
                                     )
                                     .foregroundColor(Color(red: 0.31, green: 0.35, blue: 0.41))
-                                HStack(alignment: .top) {
+                                HStack(alignment: .center) {
                                     PresentationKitAsset.starMono.swiftUIImage
                                         .resizable()
                                         .frame(width: 16, height: 16)
                                     Text("4.8")
                                         .font(
-                                            Font.custom("Circular Std", size: 15)
-                                                .weight(.semibold)
+                                            PresentationKitFontFamily.CircularStd.medium.swiftUIFont(size: 16)
                                         )
                                         .foregroundColor(Color(red: 0.31, green: 0.35, blue: 0.41))
                                         .padding(.trailing, 8)
@@ -61,8 +59,7 @@ public struct DriverDetailView: View {
                                     
                                     Text("352")
                                         .font(
-                                            Font.custom("Circular Std", size: 15)
-                                                .weight(.semibold)
+                                            PresentationKitFontFamily.CircularStd.medium.swiftUIFont(size: 16)
                                         )
                                         .foregroundColor(Color(red: 0.31, green: 0.35, blue: 0.41))
                                 }
@@ -70,8 +67,12 @@ public struct DriverDetailView: View {
                             }
                             .padding(0)
                             Spacer()
-                            Image("icon-heart-mono")
-                                .frame(width: 20, height: 20)
+                            Button {
+                                print("Heart")
+                            } label: {
+                                PresentationKitAsset.heartMono.swiftUIImage
+                                    .frame(width: 20, height: 20)
+                            }
                         }
                         .padding(0)
                         .frame(maxWidth: .infinity, alignment: .top)
@@ -90,8 +91,7 @@ public struct DriverDetailView: View {
                                 HStack(alignment: .center, spacing: 4) {
                                     Text("Driver")
                                         .font(
-                                            Font.custom("Circular Std", size: 17)
-                                                .weight(.semibold)
+                                            PresentationKitFontFamily.CircularStd.medium.swiftUIFont(size: 18)
                                         )
                                         .foregroundColor(Color(red: 0.68, green: 0.72, blue: 0.78))
                                 }
@@ -103,7 +103,7 @@ public struct DriverDetailView: View {
                                     Spacer()
                                     Rectangle()
                                         .fill(Color(red: 0.83, green: 0.85, blue: 0.88))
-                                        .frame(width: .infinity, height: 2)
+                                        .frame(maxWidth: .infinity, maxHeight: 2)
                                 }
                             }
                         }
@@ -114,8 +114,7 @@ public struct DriverDetailView: View {
                                 HStack(alignment: .center, spacing: 4) {
                                     Text("Review")
                                         .font(
-                                            Font.custom("Circular Std", size: 17)
-                                                .weight(.semibold)
+                                            PresentationKitFontFamily.CircularStd.medium.swiftUIFont(size: 18)
                                         )
                                         .foregroundColor(Color(red: 0.1, green: 0.12, blue: 0.16))
                                 }
@@ -127,7 +126,7 @@ public struct DriverDetailView: View {
                                     Spacer()
                                     Rectangle()
                                         .fill(Color(red: 0.34, green: 0.62, blue: 0.95))
-                                        .frame(width: .infinity, height: 2)
+                                        .frame(maxWidth: .infinity, maxHeight: 2)
                                 }
                             }
                         }
@@ -137,6 +136,7 @@ public struct DriverDetailView: View {
                     .padding(.bottom, 28)
                     
                     // 리뷰 스크롤 뷰
+                    /*
                     Group {
                         VStack(alignment: .leading, spacing: 28) {
                             VStack(alignment: .leading, spacing: 16) {
@@ -147,8 +147,7 @@ public struct DriverDetailView: View {
                                             .frame(width: 20, height: 20)
                                         Text("4.8")
                                             .font(
-                                                Font.custom("Circular Std", size: 26)
-                                                    .weight(.medium)
+                                                PresentationKitFontFamily.CircularStd.medium.swiftUIFont(size: 26)
                                             )
                                             .foregroundColor(Color(red: 0.31, green: 0.35, blue: 0.41))
                                     }
@@ -157,8 +156,7 @@ public struct DriverDetailView: View {
                                     // Alternative Views and Spacers
                                     Text("352 reviews")
                                       .font(
-                                        Font.custom("Circular Std", size: 15)
-                                          .weight(.medium)
+                                        PresentationKitFontFamily.CircularStd.medium.swiftUIFont(size: 16)
                                       )
                                       .foregroundColor(Color(red: 0.68, green: 0.72, blue: 0.78))
                                 }
@@ -194,16 +192,15 @@ public struct DriverDetailView: View {
                         .padding(0)
                         .padding(.bottom, 120)
                     }
+                    */
                     
                     // 택시기사 상세 정보
-                    /*
                     Group {
                         VStack(alignment: .center, spacing: 28) {
                             VStack(alignment: .leading, spacing: 8) {
                                 Text("Information")
                                     .font(
-                                        Font.custom("Circular Std", size: 15)
-                                            .weight(.semibold)
+                                        PresentationKitFontFamily.CircularStd.medium.swiftUIFont(size: 16)
                                     )
                                     .foregroundColor(Color(red: 0.1, green: 0.12, blue: 0.16))
                                 
@@ -211,15 +208,13 @@ public struct DriverDetailView: View {
                                     HStack(alignment: .top) {
                                         Text("Car")
                                             .font(
-                                                Font.custom("Circular Std", size: 13)
-                                                    .weight(.semibold)
+                                                PresentationKitFontFamily.CircularStd.medium.swiftUIFont(size: 13)
                                             )
                                             .foregroundColor(Color(red: 0.47, green: 0.52, blue: 0.59))
                                         Spacer()
                                         Text("Mid-size sedan")
                                             .font(
-                                                Font.custom("Circular Std", size: 13)
-                                                    .weight(.semibold)
+                                                PresentationKitFontFamily.CircularStd.medium.swiftUIFont(size: 13)
                                             )
                                             .foregroundColor(Color(red: 0.31, green: 0.35, blue: 0.41))
                                     }
@@ -233,15 +228,13 @@ public struct DriverDetailView: View {
                                     HStack(alignment: .top) {
                                         Text("Service Area")
                                             .font(
-                                                Font.custom("Circular Std", size: 13)
-                                                    .weight(.semibold)
+                                                PresentationKitFontFamily.CircularStd.medium.swiftUIFont(size: 13)
                                             )
                                             .foregroundColor(Color(red: 0.47, green: 0.52, blue: 0.59))
                                         Spacer()
                                         Text("All over Busan")
                                             .font(
-                                                Font.custom("Circular Std", size: 13)
-                                                    .weight(.semibold)
+                                                PresentationKitFontFamily.CircularStd.medium.swiftUIFont(size: 13)
                                             )
                                             .foregroundColor(Color(red: 0.31, green: 0.35, blue: 0.41))
                                     }
@@ -266,14 +259,12 @@ public struct DriverDetailView: View {
                             VStack(alignment: .leading, spacing: 8) {
                                 Text("Introduction")
                                     .font(
-                                        Font.custom("Circular Std", size: 15)
-                                            .weight(.semibold)
+                                        PresentationKitFontFamily.CircularStd.medium.swiftUIFont(size: 15)
                                     )
                                     .foregroundColor(Color(red: 0.1, green: 0.12, blue: 0.16))
                                 Text("Greetings! I'm [Your Name], your friendly and experienced taxi driver. With years of navigating the streets of [Your City], I'm not just here to drive – I'm here to guide you through the pulse of our city. Whether you're seeking local insights, a smooth ride, or a friendly conversation, I'm dedicated to making your journey safe, enjoyable, and memorable. Sit back, relax, and let's explore [Your City] together!")
                                     .font(
-                                        Font.custom("Circular Std", size: 13)
-                                            .weight(.semibold)
+                                        PresentationKitFontFamily.CircularStd.medium.swiftUIFont(size: 13)
                                     )
                                     .foregroundColor(Color(red: 0.47, green: 0.52, blue: 0.59))
                                     .frame(width: 335, alignment: .top)
@@ -291,8 +282,7 @@ public struct DriverDetailView: View {
                             HStack(alignment: .center, spacing: 0) {
                                 Text(item)
                                     .font(
-                                        Font.custom("Circular Std", size: 13)
-                                            .weight(.semibold)
+                                        PresentationKitFontFamily.CircularStd.medium.swiftUIFont(size: 13)
                                     )
                                     .foregroundColor(Color(red: 0.47, green: 0.52, blue: 0.59))
                             }
@@ -311,8 +301,7 @@ public struct DriverDetailView: View {
                             HStack {
                                 Text("News")
                                     .font(
-                                        Font.custom("Circular Std", size: 15)
-                                            .weight(.medium)
+                                        PresentationKitFontFamily.CircularStd.medium.swiftUIFont(size: 15)
                                     )
                                     .foregroundColor(Color(red: 0.1, green: 0.12, blue: 0.16))
                                 Spacer()
@@ -331,7 +320,6 @@ public struct DriverDetailView: View {
                         }
                         .padding(.bottom, 120)
                     }
-                     */
                 } // ScrollView
                 
                 VStack {
@@ -342,8 +330,7 @@ public struct DriverDetailView: View {
                         HStack(alignment: .center, spacing: 0) {
                             Text("Reserve")
                                 .font(
-                                    Font.custom("Circular Std", size: 16)
-                                        .weight(.bold)
+                                    PresentationKitFontFamily.CircularStd.medium.swiftUIFont(size: 16)
                                 )
                                 .multilineTextAlignment(.center)
                                 .foregroundColor(.white)
@@ -355,7 +342,7 @@ public struct DriverDetailView: View {
                     }
                     .padding(.top, 12)
                     .padding([.leading, .trailing], 20)
-                    .frame(width: .infinity)
+                    .frame(width: UIScreen.main.bounds.width)
                     .background(Color.white)
                 }
             }
@@ -368,15 +355,13 @@ public struct DriverDetailView: View {
                 // Body1
                 Text("Nice Driver!")
                   .font(
-                    Font.custom("Circular Std", size: 17)
-                      .weight(.bold)
+                    PresentationKitFontFamily.CircularStd.medium.swiftUIFont(size: 18)
                   )
                   .foregroundColor(Color(red: 0.31, green: 0.35, blue: 0.41))
                 // Body3
                 Text("Jihan Park")
                   .font(
-                    Font.custom("Circular Std", size: 13)
-                      .weight(.medium)
+                    PresentationKitFontFamily.CircularStd.medium.swiftUIFont(size: 13)
                   )
                   .foregroundColor(Color(red: 0.68, green: 0.72, blue: 0.78))
             }
@@ -404,11 +389,11 @@ public struct DriverDetailView: View {
                 // Body3
                 Text("I'm grateful for the exceptional taxi driver who made my trip smoother. Their local knowledge, friendly manner, and skilled driving ensured a comfortable and safe ride. Looking forward to the next journey with such a fantastic driver!")
                   .font(
-                    Font.custom("Circular Std", size: 13)
-                      .weight(.medium)
+                    PresentationKitFontFamily.CircularStd.medium.swiftUIFont(size: 13)
                   )
                   .foregroundColor(Color(red: 0.47, green: 0.52, blue: 0.59))
-                  .frame(width: 335, alignment: .top)
+                  .frame(maxWidth: .infinity)
+                  .padding(.horizontal, 20)
             }
             .padding(0)
         }
@@ -418,18 +403,14 @@ public struct DriverDetailView: View {
     
     private func getChip() -> some View {
         HStack(alignment: .center, spacing: 4) {
-            // Body2
             Text("Cafe")
               .font(
-                Font.custom("Circular Std", size: 15)
-                  .weight(.medium)
+                PresentationKitFontFamily.CircularStd.medium.swiftUIFont(size: 15)
               )
               .foregroundColor(Color(red: 0.47, green: 0.52, blue: 0.59))
-            // Body2
             Text("21")
               .font(
-                Font.custom("Circular Std", size: 15)
-                  .weight(.medium)
+                PresentationKitFontFamily.CircularStd.medium.swiftUIFont(size: 15)
               )
               .foregroundColor(Color(red: 0.68, green: 0.72, blue: 0.78))
         }
@@ -450,8 +431,7 @@ public struct DriverDetailView: View {
             
             Text("Experience Summer by the Sea with Our Taxi Tour!")
                 .font(
-                    Font.custom("Circular Std", size: 13)
-                        .weight(.medium)
+                    PresentationKitFontFamily.CircularStd.medium.swiftUIFont(size: 13)
                 )
                 .foregroundColor(Color(red: 0.1, green: 0.12, blue: 0.16))
                 .padding(.horizontal, 20)
@@ -459,11 +439,10 @@ public struct DriverDetailView: View {
             
             Text("Explore coastal magic on our 4-hour tour: catch sunrise at [Sunrise Point], savor beachfront brunch, cruise coastal cliffs, discover [Hidden Cove], and capture lighthouse views. Optional watersports available. Book now for an unforgettable seaside escape!")
                 .font(
-                    Font.custom("Circular Std", size: 13)
-                        .weight(.medium)
+                    PresentationKitFontFamily.CircularStd.medium.swiftUIFont(size: 13)
                 )
                 .foregroundColor(Color(red: 0.47, green: 0.52, blue: 0.59))
-                .frame(width: .infinity, alignment: .top)
+                .frame(width: UIScreen.main.bounds.width - 40, alignment: .top)
                 .padding(.horizontal, 20)
                 .padding(.bottom, 20)
         }
