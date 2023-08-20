@@ -13,7 +13,7 @@ public struct DriverListView: View {
 
     public var body: some View {
         NavigationStackStore(self.store.scope(state: \.path, action: { .path($0) })) {
-            WithViewStore(self.store, observe: \.driverList) { viewStore in
+            WithViewStore(self.store, observe: { $0 }) { viewStore in
                 ScrollView {
                     VStack(alignment: .leading, spacing: 32) {
                         HStack(alignment: .center) {
@@ -36,13 +36,12 @@ public struct DriverListView: View {
                             .padding(.vertical, 8)
                             .background(Color(red: 0.31, green: 0.35, blue: 0.41))
                             .cornerRadius(20)
-
                         }
                         .padding(.horizontal, 20)
                         .padding(.vertical, 0)
                         .frame(width: 380, alignment: .center)
 
-                        ForEach(viewStore.state) { (driver: Driver) in
+                        ForEach(viewStore.driverList, id: \.self) { (driver: Driver) in
                             NavigationLink(state: DriverListFeature.Path.State.driverDetail(.init(driver: driver))) {
                                 HStack(alignment: .top, spacing: 12) {
                                     ZStack {
@@ -65,12 +64,12 @@ public struct DriverListView: View {
 
                                             Spacer()
 
-                                            Image(systemName: (Double(driver.averageRating) ?? 0) > 3 ? "heart.fill" : "heart")
+                                            Image(systemName: (driver.isFavorite == true ? "heart.fill" : "heart"))
                                                 .resizable()
                                                 .frame(width: 25, height: 20)
                                                 .foregroundColor(Color.red)
                                                 .onTapGesture {
-                                                    viewStore.send(.didTapFavoriteDriver)
+                                                    viewStore.send(.didTapFavoriteDriver(id: driver.id))
                                                 }
                                         }
                                         .padding(0)
@@ -104,7 +103,7 @@ public struct DriverListView: View {
                                             ForEach(1..<3) { _ in
                                                 HStack(alignment: .top, spacing: 8) {
                                                     HStack(alignment: .center, spacing: 0) {
-                                                        Text("Local Expertise")
+                                                        Text(["Local Expertise", "Safe Driver", "Friendly and Approachable"].randomElement() ?? "")
                                                             .font(
                                                                 PresentationKitFontFamily.CircularStd.medium.swiftUIFont(size: 13)
                                                             )

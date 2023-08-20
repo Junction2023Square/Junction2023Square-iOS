@@ -12,7 +12,8 @@ struct JunctionTemplateApp: App {
             DriverListView(store: .init(
                 initialState: DriverListFeature.State(),
                 reducer: {
-                DriverListFeature(driverListUseCase: DriverListUseCase(driverRepository: DriverRepository()))
+                DriverListFeature(
+                    driverListUseCase: DriverListUseCase(driverRepository: DriverRepository()))
             }))
         }
     }

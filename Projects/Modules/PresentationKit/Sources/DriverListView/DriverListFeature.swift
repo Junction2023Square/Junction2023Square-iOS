@@ -12,18 +12,8 @@ public struct DriverListFeature: Reducer {
 
     public struct State: Equatable {
         public var path = StackState<Path.State>()
-
-        public var driverItem: IdentifiedArrayOf<DriverItemEntity> = [
-            .init(id: UUID(), name: "김 으무", driverImageURL: "dd", ratingCount: 4.5, driverHistoryCount: 32, hashtags: ["맛집", "관광명소"], isFavorite: true),
-            .init(id: UUID(), name: "김 으무", driverImageURL: "dd", ratingCount: 4.5, driverHistoryCount: 32, hashtags: ["맛집", "관광명소"], isFavorite: true),
-            .init(id: UUID(), name: "김 으무", driverImageURL: "dd", ratingCount: 4.5, driverHistoryCount: 32, hashtags: ["맛집", "관광명소"], isFavorite: false),
-            .init(id: UUID(), name: "김 으무", driverImageURL: "dd", ratingCount: 4.5, driverHistoryCount: 32, hashtags: ["맛집", "관광명소"], isFavorite: false),
-            .init(id: UUID(), name: "김 으무", driverImageURL: "dd", ratingCount: 4.5, driverHistoryCount: 32, hashtags: ["맛집", "관광명소"], isFavorite: false)
-        ]
-        
         public var driverList: IdentifiedArrayOf<Driver> = []
-
-        public var isSelctedFavoriteDriver: Bool = false
+        public var isSelectedFavorite: Bool = false
 
         public init() { }
     }
@@ -32,7 +22,7 @@ public struct DriverListFeature: Reducer {
         case didTapDriverListCell
         case path(StackAction<Path.State, Path.Action>)
 
-        case didTapFavoriteDriver
+        case didTapFavoriteDriver(id: String)
         case fetchDriverList
         case fetchDriverListResponse([Driver])
     }
@@ -56,9 +46,14 @@ public struct DriverListFeature: Reducer {
                 default:
                     return .none
                 }
-            case .didTapFavoriteDriver:
-                state.isSelctedFavoriteDriver.toggle()
+            case .didTapFavoriteDriver(let id):
+                let index = state.driverList.firstIndex { driver in
+                    driver.id == id
+                }
+
+                state.driverList[index ?? 0].isFavorite.toggle()
                 return .none
+
             case .fetchDriverList:
                 return .run { send in
                     let drivers: [Driver] = try await driverListUseCase.getDrivers()
@@ -67,6 +62,7 @@ public struct DriverListFeature: Reducer {
             case .fetchDriverListResponse(let drivers):
                 state.driverList = .init(uniqueElements: drivers)
                 return .none
+
             default:
                 return .none
             }

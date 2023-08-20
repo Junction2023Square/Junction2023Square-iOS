@@ -27,6 +27,7 @@ public struct Driver: Codable, Hashable, Identifiable {
     public var carSize: CarSize
     public var profileImgURL: String
     public var createdAt, updatedAt: String
+    public var isFavorite: Bool = [true, false].randomElement() ?? true
 
     public enum CodingKeys: String, CodingKey {
         case driverID = "driverId"
