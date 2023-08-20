@@ -9,7 +9,7 @@
 import ComposableArchitecture
 import DomainKit
 import SwiftUIFlowLayout
-
+import Kingfisher
 import SwiftUI
 
 public struct DriverDetailView: View {
@@ -30,10 +30,15 @@ public struct DriverDetailView: View {
             ZStack {
                 ScrollView {
                     HStack(alignment: .top, spacing: 16) {
-                        Rectangle()
-                            .fill(Color(red: 0.83, green: 0.85, blue: 0.88))
-                            .frame(width: 80, height: 80)
-                            .cornerRadius(Constants.Corner3)
+                        ZStack {
+                            KFImage(URL(string: viewStore.driver.profileImgURL))
+                                .resizable()
+                                .scaledToFill()
+                                .frame(width: 80, height: 80)
+                        }
+                        .frame(width: 80, height: 80)
+                        .background(Color(red: 0.83, green: 0.85, blue: 0.88))
+                        .cornerRadius(Constants.Corner3)
                         
                         HStack(alignment: .center) {
                             VStack(alignment: .leading, spacing: 12) {
