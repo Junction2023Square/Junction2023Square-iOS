@@ -23,6 +23,7 @@ public struct DriverListFeature: Reducer {
         case path(StackAction<Path.State, Path.Action>)
 
         case didTapFavoriteDriver(id: String)
+        case didTapAllFavoriteDriver
         case fetchDriverList
         case fetchDriverListResponse([Driver])
     }
@@ -63,6 +64,10 @@ public struct DriverListFeature: Reducer {
                 state.driverList = .init(uniqueElements: drivers)
                 return .none
 
+            case .didTapAllFavoriteDriver:
+                state.isSelectedFavorite.toggle()
+                return .none
+                
             default:
                 return .none
             }

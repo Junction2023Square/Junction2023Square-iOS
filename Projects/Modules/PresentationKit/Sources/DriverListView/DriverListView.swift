@@ -25,17 +25,42 @@ public struct DriverListView: View {
 
                             Spacer()
 
-                            HStack(alignment: .center, spacing: 0) {
-                                Text("Favorite Driver")
-                                    .font(
-                                        PresentationKitFontFamily.CircularStd.medium.swiftUIFont(size: 13)
-                                    )
-                                    .foregroundColor(.white)
+                            if viewStore.state.isSelectedFavorite {
+                                HStack(alignment: .center, spacing: 0) {
+                                    Text("Favorite Driver")
+                                        .font(
+                                            PresentationKitFontFamily.CircularStd.medium.swiftUIFont(size: 13)
+                                        )
+                                        .foregroundColor(.white)
+                                }
+                                .padding(.horizontal, 16)
+                                .padding(.vertical, 8)
+                                .background(Color(red: 0.31, green: 0.35, blue: 0.41))
+                                .cornerRadius(20)
+                                .onTapGesture {
+                                    viewStore.send(.didTapAllFavoriteDriver)
+                                }
+                            } else {
+                                HStack(alignment: .center, spacing: 0) {
+                                    Text("Favorite Driver")
+                                      .font(
+                                        Font.custom("Circular Std", size: 13)
+                                          .weight(.medium)
+                                      )
+                                      .foregroundColor(Color(red: 0.47, green: 0.52, blue: 0.59))
+                                }
+                                .padding(.horizontal, 16)
+                                .padding(.vertical, 8)
+                                .cornerRadius(20)
+                                .overlay(
+                                  RoundedRectangle(cornerRadius: 20)
+                                    .inset(by: 0.5)
+                                    .stroke(Color(red: 0.83, green: 0.85, blue: 0.88), lineWidth: 1)
+                                )
+                                .onTapGesture {
+                                    viewStore.send(.didTapAllFavoriteDriver)
+                                }
                             }
-                            .padding(.horizontal, 16)
-                            .padding(.vertical, 8)
-                            .background(Color(red: 0.31, green: 0.35, blue: 0.41))
-                            .cornerRadius(20)
                         }
                         .padding(.horizontal, 20)
                         .padding(.vertical, 0)
